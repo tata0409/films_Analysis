@@ -5,7 +5,7 @@ import seaborn as sns
 import ast
 
 url = "movies_metadata.csv"
-movies_df = pandas.read_csv(url)
+movies_df = pd.read_csv(url)
 
 #print(movies_df.head())
 #movies_df.info()
@@ -16,7 +16,7 @@ movies_df = pandas.read_csv(url)
 def extract_genres(genres_str):
     try:
         genres = ast.literal_eval(genres_str)
-        return [genres['name'] for genre in genres]
+        return [genre['name'] for genre in genres]
     except (ValueError, TypeError):
         return []
 
@@ -28,3 +28,15 @@ movies_df.dropna(subset=['budget', 'revenue'], inplace=True)
 movies_df['release_year'] = pd.to_datetime(movies_df['release_date'], errors='coerce').dt.year
 print(movies_df['release_year'])
 print(movies_df['original_language'])
+
+genre_exploded = movies_df[['title', 'release_year', 'budget', 'revenue', 'genres']].explode('genres')
+print(genre_exploded)
+genre_count = genre_exploded['genres'].value_counts()
+plt.figure(figsize=(10, 6))
+sns.barplot(x=genre_count.index, y=genre_count.values)
+plt.title("Number of films by genre")
+plt.xlabel("Genre")
+plt.ylabel("Number")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
