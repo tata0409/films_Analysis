@@ -44,7 +44,7 @@
 
 1. **Завантажте репозиторій**:
    ```bash
-   git clone <URL-репозиторію>
+   git clone [<URL-репозиторію>](https://github.com/tata0409/films_Analysis/)
 
 2. Встановіть залежності: Переконайтеся, що у вас встановлено Python 3.8+ та бібліотеки:
 
@@ -52,7 +52,6 @@ bash
 Копировать код
 pip install pandas matplotlib seaborn
 
-3. 
 
 
 ---
